@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Nếu muốn, bạn có thể thêm custom CSS ở đây */
+.input {
+  @apply w-full border px-3 py-3 rounded focus:outline-none focus:ring-2 focus:ring-red-500;
+}

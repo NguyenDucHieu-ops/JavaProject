@@ -1,0 +1,11 @@
+.admin-container { display:flex; min-height:100vh; font-family: Arial, sans-serif; }
+.sidebar { width:220px; background:#f6f7fb; padding:20px; border-right:1px solid #e6e6e6; }
+.sidebar h2 { margin:0 0 12px; }
+.sidebar a { color:#0b5ed7; text-decoration:none; display:block; margin:8px 0; }
+.content { flex:1; padding:20px; background:#fff; }
+.table { width:100%; border-collapse: collapse; }
+.table th, .table td { padding:8px 10px; border:1px solid #ddd; text-align:left; }
+.form-row { margin-bottom:10px; }
+.message { margin-top:10px; padding:8px; border-radius:4px; }
+.message.error { background:#ffe6e6; color:#b00020; }
+.message.success { background:#e6ffef; color:#006b3c; }

@@ -1,13 +1,8 @@
-// src/api/reviewApi.js
-// 📋 THAY THẾ TOÀN BỘ FILE
-
-import apiClient from "./apiClient";
+import axiosClient from "./axiosClient";
 
 const reviewApi = {
-  // 🟢 Lấy tất cả đánh giá (cả user & admin dùng)
-  getAllSiteReviews: () => {
-    return apiClient.get("/reviews");
-  },
+  // 🟢 Lấy tất cả đánh giá
+  getAllSiteReviews: () => axiosClient.get("/reviews"),
 
   // 🟢 User gửi đánh giá (có thể kèm ảnh)
   submitSiteReview: (reviewData) => {
@@ -21,35 +16,27 @@ const reviewApi = {
       formData.append("file", reviewData.file);
     }
 
-    return apiClient.post("/reviews", formData, {
+    return axiosClient.post("/reviews", formData, {
       headers: { "Content-Type": undefined },
     });
   },
 
-  // ✅ CẬP NHẬT: Admin trả lời (gửi FormData)
+  // ✅ Admin trả lời review (FormData)
   replyToReview: (id, replyMessage, file) => {
     const formData = new FormData();
-    
-    // 1. Gửi tin nhắn (phải khớp tên @RequestPart("replyMessage") trong Controller)
     formData.append("replyMessage", replyMessage);
-    
-    // 2. Gửi file (nếu có) (phải khớp tên @RequestPart("file"))
+
     if (file) {
       formData.append("file", file);
     }
-    
-    // 3. Gửi request
-    return apiClient.post(`/reviews/${id}/reply`, formData, {
-      headers: {
-        "Content-Type": undefined, // Để trình duyệt tự đặt Content-Type cho FormData
-      },
+
+    return axiosClient.post(`/reviews/${id}/reply`, formData, {
+      headers: { "Content-Type": undefined },
     });
   },
 
-  // 🟢 Admin xóa đánh giá
-  deleteReview: (id) => {
-    return apiClient.delete(`/reviews/${id}`);
-  },
+  // 🟢 Admin xóa review
+  deleteReview: (id) => axiosClient.delete(`/reviews/${id}`),
 };
 
 export default reviewApi;

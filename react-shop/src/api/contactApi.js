@@ -1,43 +1,33 @@
-import apiClient from "./apiClient";
+import axiosClient from "./axiosClient";
 
 const contactApi = {
-  // ✅ CẬP NHẬT: Gửi bằng FormData
+  // ✅ Gửi bằng FormData
   send: (contactData) => {
-    // contactData bao gồm { dto, file }
     const formData = new FormData();
 
     // 1. Gửi DTO (JSON)
-    formData.append("contactDto", new Blob([JSON.stringify(contactData.dto)], {
-      type: "application/json",
-    }));
-    
+    formData.append(
+      "contactDto",
+      new Blob([JSON.stringify(contactData.dto)], { type: "application/json" })
+    );
+
     // 2. Gửi file (nếu có)
     if (contactData.file) {
       formData.append("file", contactData.file);
     }
 
     // 3. Gửi request
-    return apiClient.post("/contact", formData, {
-      headers: {
-        // Xóa Content-Type, trình duyệt sẽ tự đặt
-        "Content-Type": undefined, 
-      },
+    return axiosClient.post("/contact", formData, {
+      headers: { "Content-Type": undefined }, // trình duyệt tự đặt
     });
   },
 
-  // === CÁC HÀM CŨ (Không đổi) ===
-  getAll: () => {
-    return apiClient.get("/contact");
-  },
-  getById: (id) => {
-    return apiClient.get(`/contact/${id}`);
-  },
-  reply: (id, replyMessage) => {
-    return apiClient.post(`/contact/${id}/reply`, { replyMessage });
-  },
-  getMyTickets: () => {
-    return apiClient.get("/contact/my-tickets");
-  }
+  // === Các hàm cũ ===
+  getAll: () => axiosClient.get("/contact"),
+  getById: (id) => axiosClient.get(`/contact/${id}`),
+  reply: (id, replyMessage) =>
+    axiosClient.post(`/contact/${id}/reply`, { replyMessage }),
+  getMyTickets: () => axiosClient.get("/contact/my-tickets"),
 };
 
 export default contactApi;

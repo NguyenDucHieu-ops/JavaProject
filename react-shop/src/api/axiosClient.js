@@ -1,20 +1,20 @@
+// src/api/axiosClient.js
 import axios from "axios";
 
 const axiosClient = axios.create({
-// Trong file axiosClient.js
-// Trong file axiosClient.js
-baseURL: "https://javaproject.onrender.com/api",  headers: {
+  baseURL: "https://javaproject.onrender.com/api",
+  headers: {
     "Content-Type": "application/json",
   },
 });
 
-// ✅ Tự động gắn JWT token cho mọi request
+// Gắn token
 axiosClient.interceptors.request.use((config) => {
-  const adminToken = localStorage.getItem("adminToken");
   const userToken = localStorage.getItem("userToken");
+  const adminToken = localStorage.getItem("adminToken");
 
-  // ✅ Ưu tiên admin token khi ở trang admin
   const isAdminPage = window.location.pathname.startsWith("/admin");
+
   const token = isAdminPage ? adminToken : userToken;
 
   if (token) {
@@ -24,23 +24,21 @@ axiosClient.interceptors.request.use((config) => {
   return config;
 });
 
-// ✅ Xử lý lỗi phản hồi (Unauthorized, v.v.)
+// Xử lý lỗi response
 axiosClient.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    console.error("API Error:", error);
+    console.log("API Error:", error);
 
-    if (error.response?.status === 401) {
-      console.warn("⚠️ Token hết hạn hoặc không hợp lệ. Đang xóa thông tin người dùng...");
+    const status = error.response?.status;
 
-      const keysToRemove = [
+    if (status === 401 || status === 403) {
+      const removeKeys = [
         "adminToken", "adminRole", "adminUsername", "adminEmail", "adminName",
         "userToken", "userRole", "userUsername", "userEmail", "userName", "userAvatar"
       ];
-      keysToRemove.forEach((k) => localStorage.removeItem(k));
 
-      // Tuỳ bạn muốn redirect về login:
-      // window.location.href = "/login";
+      removeKeys.forEach((k) => localStorage.removeItem(k));
     }
 
     return Promise.reject(error);

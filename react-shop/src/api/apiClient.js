@@ -2,8 +2,8 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:8080/api",
-  headers: {
+// Trong file axiosClient.js
+baseURL: "https://javaproject.onrender.com/api",  headers: {
     "Content-Type": "application/json",
   },
 });

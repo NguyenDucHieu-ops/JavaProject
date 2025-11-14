@@ -8,7 +8,7 @@ Trang web bán hàng thể thao (E-commerce) được xây dựng bằng Spring 
 
 Dự án đã hoàn thành các chức năng cơ bản (Quản lý CRUD cho Sản phẩm, Danh mục, User) và các chức năng nâng cao sau (vượt yêu cầu của phiếu điểm):
 
-1.  **Admin Dashboard & Thống kê "Thật"**:
+1.  **Admin Dashboard & Thống kê ""**:
     * Trang Dashboard (`/admin`) hiển thị các số liệu thống kê **"thật" 100%** (Tổng đơn hàng, Tổng sản phẩm, Tổng khách hàng, Đơn chờ xử lý) được lấy trực tiếp từ CSDL qua API `GET /api/dashboard/stats`.
     * Hiển thị danh sách "5 Đơn hàng mới nhất" và "5 Sản phẩm mới thêm" (từ API `/latest`).
 
@@ -115,13 +115,13 @@ Dự án đã hoàn thành các chức năng cơ bản (Quản lý CRUD cho Sả
 
 ## 5. Hướng dẫn thử / Tài khoản Demo
 
-*(Bạn cần tạo các tài khoản này bằng tay trong CSDL hoặc qua API đăng ký)*
+
 
 * **Tài khoản Admin:**
     * Username: `admin`
-    * Password: `admin123`
+    * Password: `123456`
 * **Tài khoản User (Khách hàng):**
-    * Username: `user`
+    * Username: `kia56`
     * Password: `123456`
 
 ---
